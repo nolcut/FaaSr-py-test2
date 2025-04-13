@@ -1,0 +1,79 @@
+{
+    "ComputeServers": {
+        "My_GitHub_Account": {
+            "FaaSType": "GitHubActions",
+            "UserName": "nolcut",
+            "ActionRepoName": "FaaSr-py-test2",
+            "Branch": "main",
+            "Token": "My_GitHub_Account_TOKEN"
+        }
+    },
+    "DataStores": {
+        "My_Minio_Bucket": {
+            "Endpoint": "https://play.min.io",
+            "Bucket": "faasr",
+            "Region": "us-east-1",
+            "Writable": "TRUE",
+            "AccessKey": "My_Minio_Bucket_ACCESS_KEY",
+            "SecretKey": "My_Minio_Bucket_SECRET_KEY"
+        }
+    },
+    "FunctionList": {
+        "add": {
+            "FunctionName": "add",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "folder": "testadd",
+                "num1": 25,
+                "num2": 17,
+                "output": "result42.txt"
+            },
+            "InvokeNext": "delete"
+        },
+        "delete": {
+            "FunctionName": "print_and_delete",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "folder": "testadd",
+                "filename": "result42.txt"
+            },
+            "InvokeNext": "log"
+        },
+        "log": {
+            "FunctionName": "test_log",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+                "message": "I hope this works."
+            },
+            "InvokeNext": "folders"
+        },
+        "folders": {
+            "FunctionName": "test_list_folders",
+            "FaaSServer": "My_GitHub_Account",
+            "Arguments": {
+
+            },
+            "InvokeNext": [
+
+            ]
+        }
+    },
+    "ActionContainers": {
+        "add": "ghcr.io/nolcut/github-actions-python:v0.1.1",
+        "delete": "ghcr.io/nolcut/github-actions-python:v0.1.1",
+        "log": "ghcr.io/nolcut/github-actions-python:v0.1.1",
+        "folders": "ghcr.io/nolcut/github-actions-python:v0.1.1"
+    },
+    "FunctionGitRepo": {
+        "add": "nolcut/test-py",
+        "print_and_delete": "nolcut/test-py",
+        "test_log": "nolcut/test-py",
+        "test_list_folders": "nolcut/test-py"
+    },
+    "FunctionInvoke": "add",
+    "InvocationID": "",
+    "FaaSrLog": "FaaSrLog",
+    "LoggingDataStore": "My_Minio_Bucket",
+    "DefaultDataStore": "My_Minio_Bucket"
+}
+
