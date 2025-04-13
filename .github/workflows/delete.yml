@@ -16,7 +16,7 @@ jobs:
       PAYLOAD_REPO: ${{ vars.PAYLOAD_REPO }}
       PAYLOAD: ${{ github.event.inputs.PAYLOAD }}
     steps:
-    - name: run Rscript
+    - name: run python
       run: |
         cd /action
-        Rscript faasr_start_invoke_github-actions.R
+        python3 faasr_start_invoke_github_actions.py
